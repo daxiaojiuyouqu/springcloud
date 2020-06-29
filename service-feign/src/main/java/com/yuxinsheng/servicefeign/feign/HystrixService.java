@@ -1,17 +1,16 @@
 package com.yuxinsheng.servicefeign.feign;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
-public class HystrixService implements FeignSerivce {
+public class HystrixService implements FeignService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public String sayHi() {
-        LOGGER.error("服务出错...");
+        log.error("服务出错...");
         return "error";
     }
 }

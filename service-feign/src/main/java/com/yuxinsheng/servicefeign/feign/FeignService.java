@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(value = "service-client", fallback = HystrixService.class)
-public interface FeignSerivce {
+public interface FeignService {
 
     @GetMapping("say/hi")
     String sayHi();

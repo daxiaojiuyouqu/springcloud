@@ -2,17 +2,15 @@ package com.yuxinsheng.servicezuul.common;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Component
 public class MyZuulFilter extends ZuulFilter {
-
-    private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 
     /**
@@ -58,7 +56,7 @@ public class MyZuulFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-        LOGGER.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
+        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
 //        Object token = request.getParameter("token");
 //        if (token == null) {
 //            LOGGER.warn("token is empty");
@@ -72,7 +70,7 @@ public class MyZuulFilter extends ZuulFilter {
 //        }
         String accessToken = request.getHeader("accessToken");
         if (StringUtils.isEmpty(accessToken)) {
-            LOGGER.warn("accessToken is empty");
+            log.warn("accessToken is empty");
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
             try {
@@ -81,7 +79,7 @@ public class MyZuulFilter extends ZuulFilter {
             }
             return null;
         }
-        LOGGER.info("ok");
+        log.info("ok");
         return null;
     }
 }
